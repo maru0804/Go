@@ -24,7 +24,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("faild to write response : %s\n", err)
 	} else {
-		w.Header().Set("status", string(status))
+		w.WriteHeader(status)
 	}
 }
 
@@ -36,5 +36,10 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("failed to create user : %s\n", err)
 	}
-	fmt.Println("created user")
+	status, err := w.Write([]byte("create user !\n"))
+	if err != nil {
+		fmt.Printf("faild to write response : %s\n", err)
+	} else {
+		w.WriteHeader(status)
+	}
 }
